@@ -2,67 +2,149 @@
 <html lang="en">
   <head>
     <meta charset="utf-8">
-    <title>Weather App</title>
+    <title>JaalVayu- Modern Weather Dashboard</title>
     <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <script src="script.js" defer></script>
   </head>
   <body>
-    <h1>Weather Dashboard</h1>
-    <div class="container">
-      <div class="weather-input">
-        <h3>Enter a City Name</h3>
-        <input class="city-input" type="text" placeholder="E.g., New York, London, Tokyo">
-        <button class="search-btn">Search</button>
-        <div class="separator"></div>
-        <button class="location-btn">Use Current Location</button>
-      </div>
-      <div class="weather-data">
-        <div class="current-weather">
-          <div class="details">
-            <h2>_______ ( ______ )</h2>
-            <h6>Temperature: __°C</h6>
-            <h6>Wind: __ M/S</h6>
-            <h6>Humidity: __%</h6>
-          </div>
-        </div>
-        <div class="days-forecast">
-          <h2>5-Day Forecast</h2>
-          <ul class="weather-cards">
-            <li class="card">
-              <h3>( ______ )</h3>
-              <h6>Temp: __C</h6>
-              <h6>Wind: __ M/S</h6>
-              <h6>Humidity: __%</h6>
-            </li>
-            <li class="card">
-              <h3>( ______ )</h3>
-              <h6>Temp: __C</h6>
-              <h6>Wind: __ M/S</h6>
-              <h6>Humidity: __%</h6>
-            </li>
-            <li class="card">
-              <h3>( ______ )</h3>
-              <h6>Temp: __C</h6>
-              <h6>Wind: __ M/S</h6>
-              <h6>Humidity: __%</h6>
-            </li>
-            <li class="card">
-              <h3>( ______ )</h3>
-              <h6>Temp: __C</h6>
-              <h6>Wind: __ M/S</h6>
-              <h6>Humidity: __%</h6>
-            </li>
-            <li class="card">
-              <h3>( ______ )</h3>
-              <h6>Temp: __C</h6>
-              <h6>Wind: __ M/S</h6>
-              <h6>Humidity: __%</h6>
-            </li>
-          </ul>
-        </div>
+    <div class="background-container">
+      <div class="background-animation">
+        <div class="weather-animation" id="weather-animation"></div>
       </div>
     </div>
     
+    <div class="container">
+      <header>
+        <h1><i class="fas fa-cloud-sun"></i> JALVAYU</h1>
+        <div class="units-toggle">
+          <button class="unit-btn active" data-unit="celsius">°C</button>
+          <button class="unit-btn" data-unit="fahrenheit">°F</button>
+        </div>
+      </header>
+      
+      <div class="app-container">
+        <div class="weather-input">
+          <div class="search-container">
+            <h3>Enter a City Name</h3>
+            <div class="search-box">
+              <input class="city-input" type="text" placeholder="E.g., New York, London, Tokyo">
+              <button class="search-btn"><i class="fas fa-search"></i></button>
+            </div>
+            <div class="search-history">
+              <h4>Recent Searches</h4>
+              <div class="history-list"></div>
+            </div>
+          </div>
+          
+          <div class="separator"></div>
+          
+          <button class="location-btn">
+            <i class="fas fa-location-arrow"></i> Use Current Location
+          </button>
+        </div>
+        
+        <div class="weather-data">
+          <div class="current-weather">
+            <div class="loading-spinner" id="current-weather-loading">
+              <div class="spinner"></div>
+            </div>
+            <div class="error-message" id="current-weather-error"></div>
+            <div class="details">
+              <div class="city-info">
+                <h2 class="city-name">_______</h2>
+                <p class="city-country">______</p>
+                <p class="current-date">Loading date...</p>
+              </div>
+              <div class="weather-icon">
+                <i class="fas fa-question"></i>
+              </div>
+              <div class="temperature">__°C</div>
+              <div class="weather-description">______</div>
+              <div class="other-details">
+                <div class="detail-item">
+                  <i class="fas fa-temperature-high"></i>
+                  <div>
+                    <span class="label">Feels Like</span>
+                    <span class="value feels-like">__°C</span>
+                  </div>
+                </div>
+                <div class="detail-item">
+                  <i class="fas fa-wind"></i>
+                  <div>
+                    <span class="label">Wind</span>
+                    <span class="value wind">__ M/S</span>
+                  </div>
+                </div>
+                <div class="detail-item">
+                  <i class="fas fa-tint"></i>
+                  <div>
+                    <span class="label">Humidity</span>
+                    <span class="value humidity">__%</span>
+                  </div>
+                </div>
+                <div class="detail-item">
+                  <i class="fas fa-compress-alt"></i>
+                  <div>
+                    <span class="label">Pressure</span>
+                    <span class="value pressure">__ hPa</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          
+          <div class="days-forecast">
+            <h2>5-Day Forecast</h2>
+            <div class="loading-spinner" id="forecast-loading">
+              <div class="spinner"></div>
+            </div>
+            <div class="error-message" id="forecast-error"></div>
+            <ul class="weather-cards">
+              <li class="card">
+                <h3 class="forecast-date">Day 1</h3>
+                <div class="forecast-icon"><i class="fas fa-sun"></i></div>
+                <h6 class="forecast-temp">Temp: __°C</h6>
+                <h6 class="forecast-wind">Wind: __ M/S</h6>
+                <h6 class="forecast-humidity">Humidity: __%</h6>
+              </li>
+              <li class="card">
+                <h3 class="forecast-date">Day 2</h3>
+                <div class="forecast-icon"><i class="fas fa-sun"></i></div>
+                <h6 class="forecast-temp">Temp: __°C</h6>
+                <h6 class="forecast-wind">Wind: __ M/S</h6>
+                <h6 class="forecast-humidity">Humidity: __%</h6>
+              </li>
+              <li class="card">
+                <h3 class="forecast-date">Day 3</h3>
+                <div class="forecast-icon"><i class="fas fa-sun"></i></div>
+                <h6 class="forecast-temp">Temp: __°C</h6>
+                <h6 class="forecast-wind">Wind: __ M/S</h6>
+                <h6 class="forecast-humidity">Humidity: __%</h6>
+              </li>
+              <li class="card">
+                <h3 class="forecast-date">Day 4</h3>
+                <div class="forecast-icon"><i class="fas fa-sun"></i></div>
+                <h6 class="forecast-temp">Temp: __°C</h6>
+                <h6 class="forecast-wind">Wind: __ M/S</h6>
+                <h6 class="forecast-humidity">Humidity: __%</h6>
+              </li>
+              <li class="card">
+                <h3 class="forecast-date">Day 5</h3>
+                <div class="forecast-icon"><i class="fas fa-sun"></i></div>
+                <h6 class="forecast-temp">Temp: __°C</h6>
+                <h6 class="forecast-wind">Wind: __ M/S</h6>
+                <h6 class="forecast-humidity">Humidity: __%</h6>
+              </li>
+            </ul>
+          </div>
+        </div>
+      </div>
+      
+      <footer>
+        <p>Weather data provided by OpenWeatherMap</p>
+      </footer>
+    </div>
   </body>
 </html>
